@@ -9,3 +9,18 @@ data class NavItem(
   val hasNews: Boolean,
   val badgeCount: Int? = null
 )
+
+data class NavSidebar(
+  val title: String,
+  val selectedIcon: ImageVector,
+  val unselectedIcon: ImageVector,
+  val hasNews: Boolean,
+  val badgeCount: Int? = null,
+  val route: String? = null
+)
+
+data class TabItem(
+  val title: String,
+  val selectedIcon: ImageVector,
+  val unselectedIcon: ImageVector,
+)

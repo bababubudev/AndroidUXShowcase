@@ -20,6 +20,9 @@ import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Navigation
 import androidx.compose.material.icons.outlined.RadioButtonChecked
 import androidx.compose.material.icons.outlined.SelectAll
+import androidx.compose.material.icons.outlined.SwipeUp
+import androidx.compose.material.icons.outlined.Tab
+import androidx.compose.material.icons.outlined.TableRows
 import androidx.compose.material.icons.outlined.TextFields
 import androidx.compose.material.icons.outlined.VerticalAlignBottom
 import androidx.compose.material.icons.outlined.VerticalAlignTop
@@ -67,7 +70,9 @@ private fun RenderOptions(context: Context){
     composable("bottom_bar") { BottomBar(navController) }
     composable("navbar") { BottomNavbar() }
     composable("nav_rail") { NavRail(context = context) }
-    composable("nav_drawer") { NavDrawer() }
+    composable("nav_drawer") { NavDrawer(navController) }
+    composable("bottom_sheet") { BottomSheetComposable() }
+    composable("tab_row") { TabRowComposable() }
   }
 }
 
@@ -81,7 +86,9 @@ private fun HomePage(navController: NavController) {
     "bottom_bar" to "Appbar showcase",
     "navbar" to "Navbar showcase",
     "nav_rail" to "Navrail showcase",
-    "nav_drawer" to "Navdraw showcase"
+    "nav_drawer" to "Navdraw showcase",
+    "bottom_sheet" to "Sheet showcase",
+    "tab_row" to "Tab row showcase"
   )
 
   Column(
@@ -98,7 +105,7 @@ private fun HomePage(navController: NavController) {
         Text(text = title)
       }
 
-      Spacer(modifier = Modifier.height(10.dp))
+      Spacer(modifier = Modifier.height(5.dp))
     }
   }
 }
@@ -113,6 +120,8 @@ private fun getIconForRoute(route: String): ImageVector {
     "navbar" -> Icons.Outlined.Navigation
     "nav_rail" -> Icons.Outlined.DirectionsRailway
     "nav_drawer" -> Icons.Outlined.Menu
+    "bottom_sheet" -> Icons.Outlined.SwipeUp
+    "tab_row" -> Icons.Outlined.TableRows
     else -> Icons.Outlined.ErrorOutline
   }
 }
