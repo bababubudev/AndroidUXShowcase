@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DirectionsRailway
+import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Navigation
 import androidx.compose.material.icons.outlined.RadioButtonChecked
 import androidx.compose.material.icons.outlined.SelectAll
@@ -29,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -64,83 +67,52 @@ private fun RenderOptions(context: Context){
     composable("bottom_bar") { BottomBar(navController) }
     composable("navbar") { BottomNavbar() }
     composable("nav_rail") { NavRail(context = context) }
+    composable("nav_drawer") { NavDrawer() }
   }
 }
 
 @Composable
 private fun HomePage(navController: NavController) {
+  val destinations = mapOf(
+    "show_buttons" to "Buttons showcase",
+    "show_text_fields" to "Text field showcase",
+    "selection_components" to "Selection showcase",
+    "top_bar" to "Appbar showcase",
+    "bottom_bar" to "Appbar showcase",
+    "navbar" to "Navbar showcase",
+    "nav_rail" to "Navrail showcase",
+    "nav_drawer" to "Navdraw showcase"
+  )
+
   Column(
     modifier = Modifier.fillMaxSize(),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center
   ) {
-    ElevatedButton(onClick = {
-      navController.navigate("show_buttons")
-    }) {
-      Icon(imageVector = Icons.Outlined.RadioButtonChecked, contentDescription = "button")
-      Spacer(modifier = Modifier.width(10.dp))
-      Text(text = "Buttons showcase")
+    destinations.forEach { (route, title) ->
+      ElevatedButton(onClick = {
+        navController.navigate(route)
+      }) {
+        Icon(imageVector = getIconForRoute(route), contentDescription = route)
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(text = title)
+      }
+
+      Spacer(modifier = Modifier.height(10.dp))
     }
+  }
+}
 
-    Spacer(modifier = Modifier.height(10.dp))
-
-    ElevatedButton(onClick = {
-      navController.navigate("show_text_fields")
-    }) {
-      Icon(imageVector = Icons.Outlined.TextFields, contentDescription = "text")
-      Spacer(modifier = Modifier.width(10.dp))
-      Text(text = "Text field showcase")
-    }
-
-    Spacer(modifier = Modifier.height(10.dp))
-
-    ElevatedButton(onClick = {
-      navController.navigate("selection_components")
-    }) {
-      Icon(imageVector = Icons.Outlined.SelectAll, contentDescription = "radio")
-      Spacer(modifier = Modifier.width(10.dp))
-      Text(text = "Selection showcase")
-    }
-
-    Spacer(modifier = Modifier.height(10.dp))
-
-    ElevatedButton(onClick = {
-      navController.navigate("top_bar")
-    }) {
-      Icon(imageVector = Icons.Outlined.VerticalAlignTop, contentDescription = "navbar")
-      Spacer(modifier = Modifier.width(10.dp))
-      Text(text = "Appbar showcase")
-    }
-
-    Spacer(modifier = Modifier.height(10.dp))
-
-    ElevatedButton(onClick = {
-      navController.navigate("bottom_bar")
-    }) {
-      Icon(imageVector = Icons.Outlined.VerticalAlignBottom, contentDescription = "navbar")
-      Spacer(modifier = Modifier.width(10.dp))
-      Text(text = "Appbar showcase")
-    }
-
-    Spacer(modifier = Modifier.height(10.dp))
-
-    ElevatedButton(onClick = {
-      navController.navigate("navbar")
-    }) {
-      Icon(imageVector = Icons.Outlined.Navigation, contentDescription = "navbar")
-      Spacer(modifier = Modifier.width(10.dp))
-      Text(text = "Navbar showcase")
-    }
-
-    Spacer(modifier = Modifier.height(10.dp))
-
-    ElevatedButton(onClick = {
-      navController.navigate("nav_rail")
-    }) {
-      Icon(imageVector = Icons.Outlined.DirectionsRailway, contentDescription = "navbar")
-      Spacer(modifier = Modifier.width(10.dp))
-      Text(text = "Navrail showcase")
-    }
-
+private fun getIconForRoute(route: String): ImageVector {
+  return when (route) {
+    "show_buttons" -> Icons.Outlined.RadioButtonChecked
+    "show_text_fields" -> Icons.Outlined.TextFields
+    "selection_components" -> Icons.Outlined.SelectAll
+    "top_bar" -> Icons.Outlined.VerticalAlignTop
+    "bottom_bar" -> Icons.Outlined.VerticalAlignBottom
+    "navbar" -> Icons.Outlined.Navigation
+    "nav_rail" -> Icons.Outlined.DirectionsRailway
+    "nav_drawer" -> Icons.Outlined.Menu
+    else -> Icons.Outlined.ErrorOutline
   }
 }
